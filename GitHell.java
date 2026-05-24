@@ -11,7 +11,8 @@ public class GitHell {
     // Konfigurasi
     private static final String FOLDER_NAME = "abyss";
     private static final String FILE_NAME = "README.yml";
-    private static final int COMMIT_INTERVAL_MINUTES = 5;
+    private static final int COMMIT_INTERVAL_MINUTES = 2;
+    private static final String[] TARGET_BRANCHES = {"main", "abbys"}; // Tambahkan nama branch di sini
 
     public static void main(String[] args) {
         System.out.println("🔥 Memulai GitHell (100% Java Version)...");
@@ -64,7 +65,10 @@ public class GitHell {
             runCommand("git", "commit", "-m", commitMessage);
 
             System.out.println("Melakukan Push ke Remote...");
-            runCommand("git", "push");
+            for (String branch : TARGET_BRANCHES) {
+                System.out.println("  -> Push ke branch: " + branch);
+                runCommand("git", "push", "origin", "HEAD:" + branch);
+            }
 
             System.out.println("✅ Eksekusi selesai.");
 
