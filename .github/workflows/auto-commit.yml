@@ -1,0 +1,107 @@
+name: 🌑 GitHell Cloud Backup
+
+on:
+  schedule:
+    # Jam 02:00 UTC = 09:00 WIB (backup jika PC mati)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      commit_count:
+        description: 'Jumlah commit yang dibuat'
+        required: false
+        default: '20'
+
+jobs:
+  auto-commit:
+    name: Daily Auto Commit
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: ⚙️ Configure Git
+        run: |
+          git config user.name "GitHell Bot 🌑"
+          git config user.email "githell-bot@users.noreply.github.com"
+
+      - name: 🌑 Make Daily Commits
+        run: |
+          mkdir -p abyss
+          COMMIT_COUNT=${{ github.event.inputs.commit_count || '20' }}
+          echo "Target: $COMMIT_COUNT commits"
+
+          MESSAGES=(
+            "refactor: improve code structure"
+            "chore: update project files"
+            "chore: cleanup and maintenance"
+            "docs: update documentation"
+            "fix: minor bug fixes"
+            "fix: resolve edge cases"
+            "feat: add new utility functions"
+            "style: improve code formatting"
+            "perf: optimize performance"
+            "build: update build scripts"
+            "ci: update automation pipeline"
+            "refactor: reorganize file structure"
+            "chore: update dependencies"
+            "docs: improve README"
+          )
+
+          UUID=$(cat /proc/sys/kernel/random/uuid 2>/dev/null || uuidgen)
+          EXEC_COUNT=1
+          if [ -f abyss/README.yml ]; then
+            EXEC_COUNT=$(grep "Execution Count" abyss/README.yml | grep -oP '\d+' | tail -1)
+            EXEC_COUNT=$((EXEC_COUNT + 1))
+          fi
+
+          for i in $(seq 1 $COMMIT_COUNT); do
+            UUID=$(cat /proc/sys/kernel/random/uuid 2>/dev/null || uuidgen)
+            TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            EXEC_COUNT=$((EXEC_COUNT + 1))
+
+            cat > abyss/README.yml << EOF
+          The abyss grows deeper with each commit.
+          ----------------------------------------------------
+          Commit ID      : $UUID
+          Execution Count: $EXEC_COUNT
+          Batch Commit   : $i of $COMMIT_COUNT
+          Timestamp      : $TIMESTAMP
+          Source         : GitHub Actions (Cloud Backup)
+          ----------------------------------------------------
+          EOF
+
+            git add abyss/README.yml
+
+            # Random commit message
+            MSG_IDX=$((RANDOM % ${#MESSAGES[@]}))
+            MSG="${MESSAGES[$MSG_IDX]} [$(date -u '+%Y-%m-%d') #$i]"
+
+            git commit -m "$MSG"
+            echo "  [$i/$COMMIT_COUNT] Committed: $MSG"
+
+            # Small random delay
+            sleep $((RANDOM % 3 + 1))
+          done
+
+      - name: 📤 Push to Branches
+        run: |
+          git push origin HEAD:main -f
+          git push origin HEAD:abbys -f
+          echo "✅ Pushed to main and abbys"
+
+      - name: 📊 Summary
+        run: |
+          echo "## 🌑 GitHell Cloud Backup Complete" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Commits | ${{ github.event.inputs.commit_count || '20' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branches | main, abbys |" >> $GITHUB_STEP_SUMMARY
+          echo "| Time | $(date -u) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
