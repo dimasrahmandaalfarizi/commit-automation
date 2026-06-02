@@ -11,7 +11,9 @@ public class GitHell {
     // Konfigurasi
     private static final String FOLDER_NAME = "abyss";
     private static final String FILE_NAME = "README.yml";
-    private static final int COMMIT_INTERVAL_MINUTES = 5;
+    private static final int COMMIT_INTERVAL_MINUTES = 2;
+    private static final String[] TARGET_BRANCHES = {"main", "abbys"}; // Tambahkan nama branch di sini
+    private static final int COMMITS_PER_PUSH = 100; // Jumlah commit sekaligus per siklus jalan
 
     public static void main(String[] args) {
         System.out.println("🔥 Memulai GitHell (100% Java Version)...");
@@ -33,38 +35,46 @@ public class GitHell {
                 folder.mkdir();
             }
 
-            // 2. Tulis file dengan ASCII Art dan metadata
-            String uuid = UUID.randomUUID().toString();
-            String currentTime = new Date().toString();
-            int executionCount = getExecutionCount();
-            
-            String content = "  ________.__  __     ___ ___         .__  .__   \n" +
-                             " /  _____/|__|/  |_  /   |   \\   ____ |  | |  |  \n" +
-                             "/   \\  ___|  \\   __\\/    ~    \\_/ __ \\|  | |  |  \n" +
-                             "\\    \\_\\  \\  ||  |  \\    Y    /\\  ___/|  |_|  |__\n" +
-                             " \\______  /__||__|   \\___|_  /  \\___  >____/____/ \n" +
-                             "        \\/                 \\/       \\/            \n" +
-                             "----------------------------------------------------\n" +
-                             "The abyss grows deeper with each commit.\n" +
-                             "----------------------------------------------------\n" +
-                             "Commit ID: " + uuid + "\n" +
-                             "Execution Count: " + executionCount + "\n" +
-                             "Last Execution Time: " + currentTime + "\n" +
-                             "----------------------------------------------------\n";
+            // 2. Lakukan perulangan pembuatan file dan commit
+            for (int i = 1; i <= COMMITS_PER_PUSH; i++) {
+                String uuid = UUID.randomUUID().toString();
+                String currentTime = new Date().toString();
+                int executionCount = getExecutionCount();
+                
+                String content = "  _____         _    _ __  __          _   _ _____          \n" +
+                                 " |  __ \\       | |  | |  \\/  |   /\\   | \\ | |  __ \\   /\\    \n" +
+                                 " | |__) |__ _  | |__| | \\  / |  /  \\  |  \\| | |  | | /  \\   \n" +
+                                 " |  _  // _` | |  __  | |\\/| | / /\\ \\ | . ` | |  | |/ /\\ \\  \n" +
+                                 " | | \\ \\ (_| | | |  | | |  | |/ ____ \\| |\\  | |__| / ____ \\ \n" +
+                                 " |_|  \\_\\__,_| |_|  |_|_|  |_/_/    \\_\\_| \\_|_____/_/    \\_\\\n" +
+                                 "----------------------------------------------------\n" +
+                                 "The abyss grows deeper with each commit.\n" +
+                                 "----------------------------------------------------\n" +
+                                 "Commit ID: " + uuid + "\n" +
+                                 "Execution Count: " + executionCount + "\n" +
+                                 "Batch Commit: " + i + " of " + COMMITS_PER_PUSH + "\n" +
+                                 "Last Execution Time: " + currentTime + "\n" +
+                                 "----------------------------------------------------\n";
 
-            File file = new File(folder, FILE_NAME);
-            Files.writeString(file.toPath(), content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                File file = new File(folder, FILE_NAME);
+                Files.writeString(file.toPath(), content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
-            // 3. Eksekusi perintah Git
-            System.out.println("Menambahkan ke Git...");
-            runCommand("git", "add", FOLDER_NAME + "/" + FILE_NAME);
+                // 3. Eksekusi perintah Git untuk Add & Commit (Tanpa Push)
+                System.out.println("  -> Membuat Commit ke-" + i + " dari " + COMMITS_PER_PUSH + "...");
+                runCommand("git", "add", FOLDER_NAME + "/" + FILE_NAME);
 
-            System.out.println("Melakukan Commit...");
-            String commitMessage = "🌑 The abyss has no bottom... (Executions: " + executionCount + ", Last run: " + currentTime + ")";
-            runCommand("git", "commit", "-m", commitMessage);
+                String commitMessage = "🌑 The abyss deepens... (Executions: " + executionCount + ", Batch: " + i + "/" + COMMITS_PER_PUSH + ")";
+                runCommand("git", "commit", "-m", commitMessage);
+                
+                // Jeda 500ms agar timestamp aman tidak bentrok
+                Thread.sleep(500);
+            }
 
             System.out.println("Melakukan Push ke Remote...");
-            runCommand("git", "push");
+            for (String branch : TARGET_BRANCHES) {
+                System.out.println("  -> Push ke branch: " + branch);
+                runCommand("git", "push", "origin", "HEAD:" + branch, "-f");
+            }
 
             System.out.println("✅ Eksekusi selesai.");
 
