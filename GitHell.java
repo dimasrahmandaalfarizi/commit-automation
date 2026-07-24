@@ -170,8 +170,13 @@ public class GitHell {
         // Git pull
         if (GIT_PULL_BEFORE_COMMIT) {
             System.out.println("🔄 Git pull...");
-            try { runCmd(repoDir, "git", "pull", "--rebase"); }
-            catch (Exception e) { System.out.println("⚠️  Pull skip: " + e.getMessage()); }
+            try { 
+                runCmd(repoDir, "git", "pull", "--rebase"); 
+            } catch (Exception e) { 
+                System.out.println("⚠️  Pull gagal/konflik: " + e.getMessage() + ". Melakukan abort..."); 
+                try { runCmd(repoDir, "git", "rebase", "--abort"); } catch (Exception ignore) {}
+                try { runCmd(repoDir, "git", "merge", "--abort"); } catch (Exception ignore) {}
+            }
         }
 
         File folder = new File(repoDir, FOLDER_NAME);
@@ -214,7 +219,20 @@ public class GitHell {
                     branch = branch.trim();
                     String label = attempt > 1 ? " (retry " + attempt + "/" + RETRY_COUNT + ")" : "";
                     System.out.println("  → Branch: " + branch + label);
-                    runCmd(repoDir, "git", "push", "origin", "HEAD:" + branch, "-f");
+                    
+                    // Supaya tidak nyangkut (hang) nunggu popup credential manager:
+                    ProcessBuilder pb = new ProcessBuilder("git", "push", "origin", "HEAD:" + branch, "-f");
+                    pb.directory(repoDir);
+                    pb.environment().put("GIT_TERMINAL_PROMPT", "0");
+                    pb.redirectErrorStream(true);
+                    Process proc = pb.start();
+                    
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+                        String line;
+                        while ((line = br.readLine()) != null) System.out.println("    " + line);
+                    }
+                    int code = proc.waitFor();
+                    if (code != 0) throw new IOException("Exit code " + code);
                 }
                 return true;
             } catch (Exception e) {
@@ -247,6 +265,15 @@ public class GitHell {
             String repoPath = rawPath.trim();
             File repoDir = new File(repoPath);
             if (!repoDir.exists()) { System.err.println("Repo tidak ada: " + repoPath); continue; }
+
+            // Git pull
+            if (GIT_PULL_BEFORE_COMMIT) {
+                try { runCmd(repoDir, "git", "pull", "--rebase"); }
+                catch (Exception e) { 
+                    try { runCmd(repoDir, "git", "rebase", "--abort"); } catch (Exception ignore) {}
+                    try { runCmd(repoDir, "git", "merge", "--abort"); } catch (Exception ignore) {}
+                }
+            }
 
             File folder = new File(repoDir, FOLDER_NAME);
             if (!folder.exists()) folder.mkdir();
@@ -322,7 +349,10 @@ public class GitHell {
             while ((line = br.readLine()) != null) System.out.println("    " + line);
         }
         int code = proc.waitFor();
-        if (code != 0) System.err.println("  ⚠️  Exit code: " + code);
+        if (code != 0) {
+            System.err.println("  ⚠️  Exit code: " + code);
+            throw new IOException("Command failed with exit code: " + code);
+        }
     }
 
     // ================================================================
