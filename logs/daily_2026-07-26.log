@@ -1,0 +1,129 @@
+[Sun 07/26/2026 13:27:44.28] ===== GitHell v2.0 Daily Run START ===== 
+[Sun 07/26/2026 13:27:44.34] Compiling GitHell.java... 
+[Sun 07/26/2026 13:27:45.96] Running daily mode... 
+? Config loaded: d:\Xampp\htdocs\commit-automation-project\config.properties
+????????????????????????????????????????????????
+?   ? GitHell v2.0 - DAILY AUTO MODE          ?
+?   Multi-Repo | Smart Msg | Retry | Stats     ?
+????????????????????????????????????????????????
+[2026-07-26 13:27:46] Memulai daily run...
+
+
+? Repo: d:\Xampp\htdocs\commit-automation-project
+???????????????????????????????????????????????????????
+? Git pull...
+    error: cannot pull with rebase: You have unstaged changes.
+    error: Please commit or stash them.
+  ??  Exit code: 128
+??  Pull gagal/konflik: Command failed with exit code: 128. Melakukan abort...
+    fatal: no rebase in progress
+  ??  Exit code: 128
+    fatal: There is no merge to abort (MERGE_HEAD missing).
+  ??  Exit code: 128
+  [01/20] Commit #8537...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 2acef629] refactor: extract common utilities [2026-07-26 #1]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [02/20] Commit #8538...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main d36a0547] fix: minor bug fixes [2026-07-26 #2]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [03/20] Commit #8539...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 44db1319] chore: update dependencies [2026-07-26 #3]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [04/20] Commit #8540...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main d3eb57d2] fix: resolve edge cases [2026-07-26 #4]
+     1 file changed, 3 insertions(+), 3 deletions(-)
+  [05/20] Commit #8541...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 58551fd3] build: update build scripts [2026-07-26 #5]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [06/20] Commit #8542...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main d11a91b9] chore: remove unused code [2026-07-26 #6]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [07/20] Commit #8543...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 04b05607] refactor: reorganize file structure [2026-07-26 #7]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [08/20] Commit #8544...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 902fe39a] docs: improve README [2026-07-26 #8]
+     1 file changed, 3 insertions(+), 3 deletions(-)
+  [09/20] Commit #8545...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main a5ccab11] style: improve code formatting [2026-07-26 #9]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [10/20] Commit #8546...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 9785e3db] fix: handle error gracefully [2026-07-26 #10]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [11/20] Commit #8547...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 05860e1c] docs: update documentation [2026-07-26 #11]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [12/20] Commit #8548...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 4035a328] fix: handle error gracefully [2026-07-26 #12]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [13/20] Commit #8549...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main fe3d4cc6] refactor: improve code structure [2026-07-26 #13]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [14/20] Commit #8550...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main e9612e02] chore: cleanup and maintenance [2026-07-26 #14]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [15/20] Commit #8551...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 633e84a4] fix: minor bug fixes [2026-07-26 #15]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [16/20] Commit #8552...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main dbc9746d] refactor: extract common utilities [2026-07-26 #16]
+     1 file changed, 3 insertions(+), 3 deletions(-)
+  [17/20] Commit #8553...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 2d742d99] refactor: extract common utilities [2026-07-26 #17]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [18/20] Commit #8554...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main fb38a530] feat: add new utility functions [2026-07-26 #18]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [19/20] Commit #8555...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main ffda7284] feat: enhance existing features [2026-07-26 #19]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+  [20/20] Commit #8556...
+    warning: in the working copy of 'abyss/README.yml', LF will be replaced by CRLF the next time Git touches it
+    [main 9ec984ef] fix: handle error gracefully [2026-07-26 #20]
+     1 file changed, 4 insertions(+), 4 deletions(-)
+
+? Pushing ke remote...
+  ? Branch: main
+    fatal: Cannot prompt because terminal prompts have been disabled.
+    fatal: could not read Username for 'https://github.com': terminal prompts disabled
+  ??  Push attempt 1 gagal: Exit code 128
+  ? Tunggu 5 menit...
+  ? Branch: main (retry 2/3)
+    fatal: Cannot prompt because terminal prompts have been disabled.
+    fatal: could not read Username for 'https://github.com': terminal prompts disabled
+  ??  Push attempt 2 gagal: Exit code 128
+  ? Tunggu 5 menit...
+  ? Branch: main (retry 3/3)
+    fatal: Cannot prompt because terminal prompts have been disabled.
+    fatal: could not read Username for 'https://github.com': terminal prompts disabled
+  ??  Push attempt 3 gagal: Exit code 128
+? Error repo d:\Xampp\htdocs\commit-automation-project: Push gagal setelah 3x retry
+
+????????????????????????????????????????????????
+?  ? Selesai! 0 commit | 0/1 repo | 631s
+????????????????????????????????????????????????
+[2026-07-26 13:38:17] Program selesai.
+
+? Stats saved ? d:\Xampp\htdocs\commit-automation-project\stats.csv
+? Windows Toast sent.
+[Sun 07/26/2026 13:38:19.48] ===== GitHell v2.0 Daily Run END ===== 
+ 
