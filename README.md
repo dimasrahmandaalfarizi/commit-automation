@@ -2,13 +2,11 @@
 
 Automate your GitHub commits effortlessly and keep your contribution graph active. This project includes a robust Java-based automation core and a modern, premium web dashboard to monitor your commit history.
 
-## 📸 Dashboard Preview
+## Dashboard Preview
 
 ![Dashboard Preview](dashboard_preview.png)
 
-*(Note: Save your dashboard screenshot as `dashboard_preview.png` in this directory to display it here)*
-
-## 🗂️ Project Structure
+## Project Structure
 
 ```text
 commit-automation-project/
@@ -33,7 +31,7 @@ commit-automation-project/
         daily_*.log
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Backend Automation
 1. Open `config.properties` and configure your settings (e.g., `daily.target`, `branches`).
@@ -46,7 +44,7 @@ commit-automation-project/
 3. Open your web browser and navigate to:
    `http://localhost/commit-automation-project/dashboard/`
 
-## ⚙️ Core Features
+## Core Features
 - **Smart Delays**: Randomizes time between commits to simulate human behavior.
 - **Auto Recovery**: Automatically retries if a push or commit fails.
 - **Heatmap Visualization**: Tracks your commits with an elegant 12-week contribution heatmap.
