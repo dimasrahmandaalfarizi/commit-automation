@@ -28,8 +28,8 @@ jobs:
 
       - name: ⚙️ Configure Git
         run: |
-          git config user.name "GitHell Bot 🌑"
-          git config user.email "githell-bot@users.noreply.github.com"
+          git config user.name "dimasrahmandaalfarizi"
+          git config user.email "dimassrahmanda@gmail.com"
 
       - name: 🌑 Make Daily Commits
         run: |

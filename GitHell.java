@@ -171,7 +171,9 @@ public class GitHell {
         if (GIT_PULL_BEFORE_COMMIT) {
             System.out.println("🔄 Git pull...");
             try { 
+                try { runCmd(repoDir, "git", "stash"); } catch (Exception ignore) {}
                 runCmd(repoDir, "git", "pull", "--rebase"); 
+                try { runCmd(repoDir, "git", "stash", "pop"); } catch (Exception ignore) {}
             } catch (Exception e) { 
                 System.out.println("⚠️  Pull gagal/konflik: " + e.getMessage() + ". Melakukan abort..."); 
                 try { runCmd(repoDir, "git", "rebase", "--abort"); } catch (Exception ignore) {}
@@ -367,6 +369,16 @@ public class GitHell {
             System.out.println("📊 Stats saved → " + statsFile.getAbsolutePath());
         } catch (Exception e) {
             System.err.println("⚠️  Gagal simpan stats: " + e.getMessage());
+        }
+
+        // Commit stats.csv so git working tree remains clean
+        for (String rawPath : REPOSITORIES) {
+            try {
+                File repoDir = new File(rawPath.trim());
+                runCmd(repoDir, "git", "add", STATS_FILE);
+                runCmd(repoDir, "git", "commit", "-m", "chore: update " + STATS_FILE + " [" + date + "]");
+                pushWithRetry(repoDir);
+            } catch (Exception ignore) {}
         }
     }
 
